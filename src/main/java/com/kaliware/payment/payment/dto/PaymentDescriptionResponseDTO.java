@@ -1,7 +1,6 @@
 package com.kaliware.payment.payment.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.kaliware.payment.payment.enums.EnmPaymentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,5 +16,5 @@ public class PaymentDescriptionResponseDTO extends PaymentDescriptionDTO{
   @JsonProperty("codigoAutorizacao")
   private String authorizationCode;
 
-  private EnmPaymentStatus status;
+  private String status;
 }
