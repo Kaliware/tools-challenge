@@ -106,7 +106,7 @@ public class PaymentService implements IPaymentService{
   @Override
   public PaymentDTO findById(String id){
     if(!payments.containsKey(id)){
-      throw new ResourceNotFoundException("Transação não encontrada!");
+      throw new ResourceNotFoundException("Transação não encontrada! ID: " + id);
     }
     return payments.get(id);
   }

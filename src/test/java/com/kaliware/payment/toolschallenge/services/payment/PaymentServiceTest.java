@@ -12,6 +12,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.List;
+
 import static com.kaliware.payment.toolschallenge.stub.dto.payment.FactoryPaymentDTO.craateRequestPaymentDTO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -155,4 +157,57 @@ public class PaymentServiceTest{
     }
   }
 
+  @Nested
+  @DisplayName("findById Method")
+  class FindByIdMethod{
+
+    @Test
+    @DisplayName("should Throw ResourceNotFoundException When Transaction Not Found")
+    public void shouldThrowResourceNotFoundExceptionWhenTransactionNotFound(){
+      String nonExistId = "1";
+      ResourceNotFoundException exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+        service.findById(nonExistId);
+      });
+      assertEquals("Transação não encontrada! ID: 1", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("should return PaymentDTO When exist id")
+    public void shouldReturnPaymentDtoWhenExistId(){
+      dto.getTransaction().setId("11");
+      service.payment(dto);
+      PaymentDTO response = service.findById(dto.getTransaction().getId());
+      Assertions.assertNotNull(response);
+      Assertions.assertEquals("11", dto.getTransaction().getId());
+    }
+  }
+
+  @Nested
+  @DisplayName("findAll Method")
+  class FindAllMethod{
+
+    @Test
+    @DisplayName("should Throw ResourceNotFoundException When list PaymentDTO is empty")
+    public void shouldThrowResourceNotFoundExceptionWhenListPaymentDtoIsEmpty(){
+      ResourceNotFoundException exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+        service.findAll();
+      });
+      assertEquals("Nenhuma transação realizada!", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("should return PaymentDTO When exist id")
+    public void shouldReturnPaymentDtoWhenExistId(){
+      dto.getTransaction().setId("11");
+      service.payment(dto);
+      dto.getTransaction().setId("12");
+      service.payment(dto);
+      List<PaymentDTO> response = service.findAll();
+      Assertions.assertNotNull(response);
+      Assertions.assertEquals(2, response.size());
+    }
+  }
+
 }
+
+
