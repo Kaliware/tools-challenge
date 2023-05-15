@@ -1,13 +1,13 @@
-package com.kaliware.payment.payment;
+package com.kaliware.payment.toolschallenge;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class PaymentApplicationTests {
+class ToolsChallengeApplicationTests{
 
-	@Test
-	void contextLoads() {
-	}
+  @Test
+  void contextLoads(){
+  }
 
 }
